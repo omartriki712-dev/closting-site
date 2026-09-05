@@ -159,6 +159,16 @@
   }
   html,
   body {
-    @apply min-h-screen bg-white text-foreground;
+    @apply m-0 min-h-screen w-full overflow-x-hidden bg-white text-foreground;
+  }
+
+  html {
+    box-sizing: border-box;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
   }
 }
