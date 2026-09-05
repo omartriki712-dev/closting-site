@@ -1,6 +1,8 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import { StorefrontHeader } from '@/components/storefront-header'
+import { StorefrontFooter } from '@/components/storefront-footer'
 
 export const metadata: Metadata = {
   title: 'SHOP.CO — Find Clothes That Match Your Style',
@@ -41,7 +43,15 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-background">
       <body className="antialiased">
-        {children}
+        <div className="min-h-screen bg-[#a8a8a8] px-0 text-[#111] sm:px-7">
+          <div className="mx-auto min-h-screen max-w-[1080px] bg-white shadow-sm">
+            <div className="px-4 pt-3 sm:px-12">
+              <StorefrontHeader />
+              <main>{children}</main>
+            </div>
+            <StorefrontFooter />
+          </div>
+        </div>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
