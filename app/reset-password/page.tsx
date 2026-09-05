@@ -1,0 +1,5 @@
+import Link from 'next/link'
+
+export default function ResetPasswordPage() {
+  return <main className="flex min-h-screen items-center justify-center bg-[#f7f7f7] px-4 py-10"><section className="w-full max-w-md rounded-2xl bg-white p-8 shadow-sm"><Link href="/" className="text-2xl font-black tracking-[-1px]">SHOP.CO</Link><h1 className="mt-10 text-3xl font-black">Reset your password</h1><p className="mt-2 text-sm leading-6 text-[#666]">Enter your email and we&apos;ll send you a secure reset link.</p><form className="mt-8 flex flex-col gap-4"><label className="text-sm font-semibold">Email<input required type="email" className="mt-2 w-full rounded-lg border border-[#ddd] px-4 py-3 outline-none focus:border-black" /></label><button className="rounded-full bg-black py-3 text-sm font-semibold text-white">Send reset link</button></form><p className="mt-6 text-center text-sm text-[#666]"><Link href="/login" className="font-semibold text-black underline">Back to log in</Link></p></section></main>
+}
