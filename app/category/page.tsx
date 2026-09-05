@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { ChevronDown, ChevronRight, SlidersHorizontal, Star, X } from "lucide-react"
+import { Check, ChevronDown, ChevronRight, SlidersHorizontal, Star, X } from "lucide-react"
 import { StorefrontFrame } from "@/components/storefront-header"
 
 type Product = { name: string; price: number; oldPrice?: number; image: string; rating: string; reviews: number; badge?: string }
@@ -32,8 +32,14 @@ function ProductCard({ product }: { product: Product }) {
 
 function FilterPanel({ onClose }: { onClose?: () => void }) {
   const [selectedSize, setSelectedSize] = useState("Large")
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  const [expandedCategories, setExpandedCategories] = useState<string[]>([])
+  const categoryTree = [{ name: "T-shirts", children: ["Graphic T-shirts", "Plain T-shirts"] }, { name: "Shirts", children: ["Casual Shirts", "Formal Shirts"] }, { name: "Jeans", children: [] }, { name: "Hoodies", children: [] }, { name: "Shorts", children: ["Bermuda Shorts", "Active Shorts"] }]
+  const toggleCategory = (category: string) => setSelectedCategories((current) => current.includes(category) ? current.filter((item) => item !== category) : [...current, category])
+  const toggleExpanded = (category: string) => setExpandedCategories((current) => current.includes(category) ? current.filter((item) => item !== category) : [...current, category])
+  const categoryButton = (item: string, nested = false) => <button type="button" key={item} onClick={() => toggleCategory(item)} className={`flex w-full items-center gap-2 border-b border-[#eee] py-2 text-left text-xs ${nested ? "pl-5 text-muted-foreground" : "text-foreground"}`}><span className={`flex size-4 items-center justify-center rounded border ${selectedCategories.includes(item) ? "border-black bg-black text-white" : "border-[#bbb]"}`}>{selectedCategories.includes(item) && <Check size={11} />}</span>{item}</button>
   return <div className="flex flex-col gap-5 text-sm">
-    <div><div className="mb-2 flex items-center justify-between font-bold">Categories <ChevronDown size={15} /></div>{["T-shirts", "Shorts", "Shirts", "Hoodie", "Jeans"].map((item) => <button key={item} className="flex w-full justify-between border-b border-[#eee] py-2 text-left text-xs text-muted-foreground">{item}<ChevronRight size={14} /></button>)}</div>
+    <div><div className="mb-2 flex items-center justify-between font-bold">Categories <ChevronDown size={15} /></div>{categoryTree.map((category) => <div key={category.name}><div className="flex items-center"><div className="min-w-0 flex-1">{categoryButton(category.name)}</div>{category.children.length > 0 && <button type="button" onClick={() => toggleExpanded(category.name)} aria-label={`Show ${category.name} subcategories`} className="p-2 text-muted-foreground"><ChevronRight size={15} className={`transition-transform ${expandedCategories.includes(category.name) ? "rotate-90" : ""}`} /></button>}</div>{expandedCategories.includes(category.name) && <div>{category.children.map((child) => categoryButton(child, true))}</div>}</div>)}</div>
     <div className="border-t border-[#eee] pt-4"><div className="mb-3 flex items-center justify-between font-bold">Price <ChevronDown size={15} /></div><input aria-label="Price range" type="range" min="50" max="300" defaultValue="240" className="w-full accent-black" /><div className="flex justify-between text-xs text-muted-foreground"><span>$50</span><span>$300</span></div></div>
     <div className="border-t border-[#eee] pt-4"><div className="mb-3 flex items-center justify-between font-bold">Colors <ChevronDown size={15} /></div><div className="flex flex-wrap gap-3">{colors.map((color) => <button key={color} aria-label={`Color ${color}`} className="size-6 rounded-full border border-[#ddd]" style={{ backgroundColor: color }} />)}</div></div>
     <div className="border-t border-[#eee] pt-4"><div className="mb-3 flex items-center justify-between font-bold">Size <ChevronDown size={15} /></div><div className="flex flex-wrap gap-2">{sizes.map((size) => <button key={size} onClick={() => setSelectedSize(size)} className={`rounded-full px-3 py-2 text-[11px] ${selectedSize === size ? "bg-black text-white" : "bg-[#f1f1f1] text-muted-foreground"}`}>{size}</button>)}</div></div>
