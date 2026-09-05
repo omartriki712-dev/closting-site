@@ -30,14 +30,14 @@ export default function ProductPage() {
 
   return (
     <StorefrontFrame current="Product Details">
-      <main className="mx-auto max-w-3xl px-3 pb-8 sm:px-0">
+      <main className="mx-auto w-full max-w-[1180px] px-3 pb-8 sm:px-0">
         <nav className="flex items-center gap-2 py-4 text-[10px] text-muted-foreground" aria-label="Breadcrumb">
           <span>Home</span><span>›</span><span>Shop</span><span>›</span><span>Men</span><span>›</span><span className="text-foreground">T-shirts</span>
         </nav>
 
         <section aria-label="Product gallery">
           <div className="relative overflow-hidden rounded-xl bg-[#f1eeee]">
-            <Image src={images[activeImage]} alt="One Life Graphic T-shirt" width={900} height={700} priority unoptimized className="h-[250px] w-full object-cover object-center sm:h-[400px]" />
+            <Image src={images[activeImage]} alt="One Life Graphic T-shirt" width={900} height={700} priority unoptimized className="h-[250px] w-full object-cover object-center sm:h-[520px] lg:h-[620px]" />
             <button aria-label="Previous product image" onClick={() => stepImage(-1)} className="absolute left-3 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded-full bg-white/90"><ArrowLeft size={15} /></button>
             <button aria-label="Next product image" onClick={() => stepImage(1)} className="absolute right-3 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded-full bg-white/90"><ArrowRight size={15} /></button>
           </div>
