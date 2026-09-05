@@ -5,10 +5,6 @@ import { useEffect, useState } from 'react'
 import { StorefrontNewsletter } from '@/components/storefront-newsletter'
 import { StorefrontFooter } from '@/components/storefront-footer'
 
-const subcategories = [
-  ['T-shirts', 't-shirts'], ['Shirts', 'shirts'], ['Jeans', 'jeans'], ['Hoodies', 'hoodies'], ['Shorts', 'shorts'], ['Dress Style', 'dress-style'],
-]
-
 export function StorefrontHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
@@ -27,7 +23,6 @@ export function StorefrontHeader() {
       <nav className={`${menuOpen ? 'absolute left-0 top-20 z-30 flex' : 'hidden'} flex-col gap-4 bg-white p-5 text-lg shadow-md sm:static sm:flex sm:flex-row sm:items-center sm:justify-center sm:bg-transparent sm:p-0 sm:text-lg sm:shadow-none lg:w-1/3`}><a href="/category">Shop</a><a href="/category/sale">On Sale</a><a href="/category/new-arrivals">New Arrivals</a><a href="/category/brands">Brands</a></nav>
       <div className="flex items-center justify-end gap-4 lg:w-1/3"><button type="button" onClick={() => setSearchOpen(true)} aria-label="Open search"><Search size={20} /></button><a href="/cart" aria-label="Shopping cart"><ShoppingCart size={20} /></a><a href="/login" aria-label="Log in"><CircleUserRound size={20} /></a></div>
     </header>
-    <div className="flex gap-6 overflow-x-auto border-b border-[#eee] px-4 py-3 text-xs text-[#666] sm:mx-8 sm:px-0 lg:mx-12">{subcategories.map(([label, slug]) => <a key={slug} href={`/category/${slug}`} className="whitespace-nowrap">{label}</a>)}</div>
     {searchOpen && <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 px-4" role="presentation" onMouseDown={(event) => event.currentTarget === event.target && setSearchOpen(false)}><div role="dialog" aria-modal="true" aria-label="Search products" className="w-full max-w-xl rounded-2xl bg-white p-5 shadow-2xl animate-modal-in"><div className="flex items-center justify-between"><h2 className="text-lg font-bold">Search products</h2><button onClick={() => setSearchOpen(false)} aria-label="Close search"><X size={20} /></button></div><div className="mt-5 flex items-center gap-3 rounded-full border border-[#ddd] px-4 py-3"><Search size={18} className="text-[#777]" /><input autoFocus value={query} onChange={(event) => setQuery(event.target.value)} placeholder="What are you looking for?" className="w-full bg-transparent text-sm outline-none" /></div><p className="mt-4 text-xs text-[#777]">{query ? `Showing results for “${query}”` : 'Try searching for shirts, jeans, or new arrivals.'}</p></div></div>}
   </>
 }
