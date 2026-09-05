@@ -40,4 +40,4 @@ export function StorefrontHeader() {
   </>
 }
 
-export function StorefrontFrame({ children }: { children: React.ReactNode }) { return <div className="min-h-screen w-full max-w-none overflow-x-hidden bg-white text-[#111]"><StorefrontHeader /><main className="page-enter px-4 sm:px-12">{children}</main><StorefrontNewsletter /><StorefrontFooter /></div> }
+export function StorefrontFrame({ children }: { children: React.ReactNode }) { return <div className="min-h-screen w-full overflow-x-hidden bg-white text-[#111]"><StorefrontHeader /><main className="page-enter mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-12">{children}</main><StorefrontNewsletter /><StorefrontFooter /></div> }
