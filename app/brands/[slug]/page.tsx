@@ -2,9 +2,8 @@
 
 import { use } from 'react'
 import { notFound } from 'next/navigation'
-import { ShoppingCart, Star } from 'lucide-react'
-import { toast } from 'sonner'
 import { StorefrontFrame } from '@/components/storefront-header'
+import { StorefrontProductCard } from '@/components/storefront-product-card'
 
 const brands = [
   { slug: 'versace', name: 'Versace', description: 'Luxury Italian fashion brand known for bold colors and patterns.', productCount: 24 },
@@ -54,22 +53,6 @@ const brandProducts = {
   ],
 }
 
-function ProductCard({ product }: { product: (typeof brandProducts)[keyof typeof brandProducts][0] }) {
-  const addToCart = () => {
-    const match = document.cookie.match(/(?:^|; )shop_cart=([^;]*)/)
-    const cart = match ? JSON.parse(decodeURIComponent(match[1])) : []
-    const next = [...cart, { id: Date.now(), name: product.name, price: product.price, image: product.image, quantity: 1 }]
-    document.cookie = `shop_cart=${encodeURIComponent(JSON.stringify(next))}; path=/; max-age=2592000`
-    toast.success(`${product.name} added to your cart`, { description: 'You can review your items from the cart.', action: { label: 'View cart', onClick: () => { window.location.href = '/cart' } } })
-  }
-  return <article className="group block">
-    <a href="/product" className="block"><div className="relative aspect-square overflow-hidden rounded-xl bg-[#f0f0f0]"><img src={product.image} alt={product.name} className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105" /></div><h2 className="mt-3 text-sm font-bold leading-tight">{product.name}</h2></a>
-    <div className="mt-2 flex items-center gap-1 text-xs"><span className="flex text-amber-500">{[1, 2, 3, 4, 5].map((star) => <Star key={star} size={12} fill="currentColor" />)}</span><span className="text-muted-foreground">{product.rating}/5</span><span className="text-muted-foreground">({product.reviews})</span></div>
-    <p className="mt-2 text-base font-bold">${product.price}</p>
-    <button type="button" onClick={addToCart} className="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-black py-2.5 text-xs font-semibold text-white"><ShoppingCart size={15} /> Add to Cart</button>
-  </article>
-}
-
 export default function BrandDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params)
   const brand = brands.find((b) => b.slug === slug)
@@ -79,7 +62,7 @@ export default function BrandDetailPage({ params }: { params: Promise<{ slug: st
     <div className="mx-auto max-w-[1180px] py-8">
       <nav className="mb-6 flex items-center gap-2 text-xs text-muted-foreground" aria-label="Breadcrumb"><a href="/" className="hover:underline">Home</a><span>›</span><a href="/brands" className="hover:underline">Brands</a><span>›</span><span className="text-foreground">{brand.name}</span></nav>
       <div className="mb-10 border-b border-[#eee] pb-8"><h1 className="text-4xl font-black tracking-tight">{brand.name}</h1><p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">{brand.description}</p><div className="mt-6 flex items-center gap-4"><span className="text-sm font-semibold">{products.length} Products Available</span></div></div>
-      <section className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-6">{products.map((product) => <ProductCard key={product.id} product={product} />)}</section>
+      <section className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-6">{products.map((product) => <StorefrontProductCard key={product.id} product={{ ...product, color: "#000", brand: brand.name }} />)}</section>
     </div>
   </StorefrontFrame>
 }
