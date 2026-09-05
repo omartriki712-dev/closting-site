@@ -17,4 +17,4 @@ export function StorefrontHeader({ current = 'Cart' }: { current?: string }) {
   </>
 }
 
-export function StorefrontFrame({ children, current }: { children: React.ReactNode; current?: string }) { return <div className="min-h-screen w-full max-w-none overflow-x-hidden bg-white px-4 pt-3 text-[#111] sm:px-12"><div className="mb-2 text-xs text-[#666]">{current}</div><StorefrontHeader current={current} /><main>{children}</main><StorefrontNewsletter /><StorefrontFooter /></div> }
+export function StorefrontFrame({ children, current }: { children: React.ReactNode; current?: string }) { return <div className="min-h-screen w-full max-w-none overflow-x-hidden bg-white px-0 pt-0 text-[#111] sm:px-12 sm:pt-3"><div className="mb-2 hidden text-xs text-[#666] sm:block">{current}</div><StorefrontHeader current={current} /><main>{children}</main><StorefrontNewsletter /><StorefrontFooter /></div> }
