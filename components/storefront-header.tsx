@@ -8,7 +8,7 @@ import { StorefrontFooter } from '@/components/storefront-footer'
 export function StorefrontHeader({ current = 'Cart' }: { current?: string }) {
   const [menuOpen, setMenuOpen] = useState(false)
   return <>
-    <div className="mb-2 flex h-7 items-center justify-center bg-black text-[9px] text-white">Sign up and get 20% off to your first order. <u className="ml-1">Sign Up Now</u><button aria-label="Close promotion" className="absolute right-5 sm:right-14"><X size={12} /></button></div>
+    <div className="flex h-7 w-full items-center justify-center bg-black text-[9px] text-white">Sign up and get 20% off to your first order. <u className="ml-1">Sign Up Now</u><button aria-label="Close promotion" className="absolute right-5 sm:right-14"><X size={12} /></button></div>
     <header className="relative flex h-16 w-full min-w-0 items-center justify-between border-b border-[#eee]">
       <div className="flex items-center gap-5"><button className="sm:hidden" onClick={() => setMenuOpen(!menuOpen)} aria-label="Open menu"><Menu size={21} /></button><a href="/" className="text-[22px] font-black tracking-[-1.5px]">SHOP.CO</a><nav className={`${menuOpen ? 'absolute left-0 top-16 z-10 flex' : 'hidden'} flex-col gap-4 bg-white p-5 text-xs shadow-md sm:static sm:flex sm:flex-row sm:bg-transparent sm:p-0 sm:shadow-none`}><a href="/category">Shop <ChevronDown className="ml-1 inline" size={11} /></a><a href="#">On Sale</a><a href="#">New Arrivals</a><a href="#">Brands</a></nav></div>
       <div className="hidden h-8 w-[390px] items-center gap-2 rounded-full bg-[#f1f1f1] px-3 text-xs text-[#999] md:flex"><Search size={15} /> Search for products...</div>
@@ -17,4 +17,4 @@ export function StorefrontHeader({ current = 'Cart' }: { current?: string }) {
   </>
 }
 
-export function StorefrontFrame({ children, current }: { children: React.ReactNode; current?: string }) { return <div className="min-h-screen w-full max-w-none overflow-x-hidden bg-white px-0 pt-0 text-[#111] sm:px-12 sm:pt-3"><div className="mb-2 hidden text-xs text-[#666] sm:block">{current}</div><StorefrontHeader current={current} /><main>{children}</main><StorefrontNewsletter /><StorefrontFooter /></div> }
+export function StorefrontFrame({ children }: { children: React.ReactNode; current?: string }) { return <div className="min-h-screen w-full max-w-none overflow-x-hidden bg-white text-[#111]"><StorefrontHeader /><main className="px-4 sm:px-12">{children}</main><StorefrontNewsletter /><StorefrontFooter /></div> }
