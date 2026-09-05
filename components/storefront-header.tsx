@@ -2,6 +2,8 @@
 
 import { ChevronDown, CircleUserRound, Menu, Search, ShoppingCart, X } from 'lucide-react'
 import { useState } from 'react'
+import { StorefrontNewsletter } from '@/components/storefront-newsletter'
+import { StorefrontFooter } from '@/components/storefront-footer'
 
 export function StorefrontHeader({ current = 'Cart' }: { current?: string }) {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -15,4 +17,4 @@ export function StorefrontHeader({ current = 'Cart' }: { current?: string }) {
   </>
 }
 
-export function StorefrontFrame({ children, current }: { children: React.ReactNode; current?: string }) { return <div className="min-h-screen bg-[#a8a8a8] px-0 text-[#111] sm:px-7"><div className="mx-auto min-h-screen max-w-[1080px] bg-white shadow-sm"><div className="px-4 pt-3 sm:px-12"><div className="mb-2 text-xs text-[#666]">{current}</div><StorefrontHeader current={current} />{children}</div></div></div> }
+export function StorefrontFrame({ children, current }: { children: React.ReactNode; current?: string }) { return <div className="min-h-screen bg-[#a8a8a8] px-0 text-[#111] sm:px-7"><div className="mx-auto min-h-screen max-w-[1080px] bg-white shadow-sm"><div className="px-4 pt-3 sm:px-12"><div className="mb-2 text-xs text-[#666]">{current}</div><StorefrontHeader current={current} /><main>{children}</main><StorefrontNewsletter /></div><StorefrontFooter /></div></div> }
