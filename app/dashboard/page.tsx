@@ -1,4 +1,6 @@
 import { AppSidebar } from '@/components/app-sidebar'
+import { Statistics } from '@/components/statistics'
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -43,14 +45,26 @@ export default function Page() {
             </BreadcrumbList>
           </Breadcrumb>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4">
-          {Array.from({ length: 24 }).map((_, index) => (
-            <div
-              key={index}
-              className="aspect-video h-12 w-full rounded-lg bg-muted/50"
-            />
-          ))}
-        </div>
+        <main className="flex flex-1 flex-col gap-8 p-4 md:p-6">
+          <Statistics />
+          <section aria-label="Recent activity" className="rounded-xl border border-border bg-card p-5 shadow-sm">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h2 className="font-semibold text-foreground">Recent activity</h2>
+                <p className="mt-1 text-sm text-muted-foreground">Your latest inbox activity at a glance.</p>
+              </div>
+              <span className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">This month</span>
+            </div>
+            <div className="mt-6 flex h-40 items-end gap-2 sm:gap-4">
+              {[42, 68, 54, 82, 61, 92, 74, 88, 66, 96, 78, 100].map((height, index) => (
+                <div key={index} className="flex flex-1 flex-col items-center gap-2">
+                  <div className="w-full rounded-t-md bg-primary/80 transition-colors hover:bg-primary" style={{ height: `${height}%` }} />
+                  <span className="text-[10px] text-muted-foreground">{index + 1}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        </main>
       </SidebarInset>
     </SidebarProvider>
   )
