@@ -1,7 +1,8 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { Check, ChevronDown, ChevronRight, SlidersHorizontal, Star, X } from "lucide-react"
+import { Check, ChevronDown, ChevronRight, ShoppingCart, SlidersHorizontal, Star, X } from "lucide-react"
+import { toast } from "sonner"
 import { StorefrontFrame } from "@/components/storefront-header"
 
 type Product = { name: string; price: number; oldPrice?: number; image: string; rating: string; reviews: number; badge?: string }
@@ -22,12 +23,20 @@ const colors = ["#16a34a", "#ef1b22", "#f3d313", "#f97316", "#20bfdb", "#243fe7"
 const sizes = ["XX-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "XX-Large", "3X-Large", "4X-Large"]
 
 function ProductCard({ product }: { product: Product }) {
-  return <a href="/product" className="group block">
-    <div className="relative aspect-square overflow-hidden rounded-xl bg-[#f0f0f0]"><img src={product.image} alt={product.name} className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105" /></div>
-    <h2 className="mt-3 text-sm font-bold leading-tight">{product.name}</h2>
+  const addToCart = () => {
+    const match = document.cookie.match(/(?:^|; )shop_cart=([^;]*)/)
+    const cart = match ? JSON.parse(decodeURIComponent(match[1])) : []
+    const next = [...cart, { id: Date.now(), name: product.name, price: product.price, image: product.image, quantity: 1 }]
+    document.cookie = `shop_cart=${encodeURIComponent(JSON.stringify(next))}; path=/; max-age=2592000`
+    toast.success(`${product.name} added to your cart`, { description: "You can review your items from the cart.", action: { label: "View cart", onClick: () => { window.location.href = "/cart" } } })
+  }
+  return <article className="group block">
+    <a href="/product" className="block"><div className="relative aspect-square overflow-hidden rounded-xl bg-[#f0f0f0]"><img src={product.image} alt={product.name} className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105" /></div>
+    <h2 className="mt-3 text-sm font-bold leading-tight">{product.name}</h2></a>
     <div className="mt-2 flex items-center gap-1 text-xs"><span className="flex text-amber-500">{[1, 2, 3, 4, 5].map((star) => <Star key={star} size={12} fill="currentColor" />)}</span><span className="text-muted-foreground">{product.rating}/5</span><span className="text-muted-foreground">({product.reviews})</span></div>
     <p className="mt-2 text-base font-bold">${product.price} {product.oldPrice && <><span className="ml-1 text-sm text-muted-foreground line-through">${product.oldPrice}</span><span className="ml-2 rounded-full bg-red-100 px-2 py-1 text-[10px] font-normal text-red-500">{product.badge}</span></>}</p>
-  </a>
+    <button type="button" onClick={addToCart} className="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-black py-2.5 text-xs font-semibold text-white"><ShoppingCart size={15} /> Add to Cart</button>
+  </article>
 }
 
 function FilterPanel({ onClose }: { onClose?: () => void }) {
