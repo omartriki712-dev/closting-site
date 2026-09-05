@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import { Toaster } from 'sonner'
 
 export const metadata: Metadata = {
   title: 'SHOP.CO — Find Clothes That Match Your Style',
@@ -42,6 +43,7 @@ export default function RootLayout({
     <html lang="en" className="min-h-screen w-full bg-white">
       <body className="min-h-screen w-full antialiased">
         {children}
+        <Toaster position="top-center" richColors closeButton duration={4500} />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
