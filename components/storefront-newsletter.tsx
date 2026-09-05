@@ -1,0 +1,3 @@
+import { Mail } from 'lucide-react'
+
+export function StorefrontNewsletter() { return <section className="my-14 flex flex-col gap-5 rounded-xl bg-black px-8 py-7 text-white md:flex-row md:items-center md:justify-between"><h2 className="max-w-[390px] text-[25px] font-black leading-[.95] tracking-[-1px]">STAY UP TO DATE ABOUT OUR LATEST OFFERS</h2><form className="flex w-full max-w-[275px] flex-col gap-2"><label className="flex items-center gap-2 rounded-full bg-white px-3 py-2 text-[9px] text-[#999]"><Mail size={13} /><input className="w-full outline-none" placeholder="Enter your email address" type="email" aria-label="Email address" /></label><button className="rounded-full bg-white py-2 text-[9px] text-black">Subscribe to Newsletter</button></form></section> }
