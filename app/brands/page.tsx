@@ -18,7 +18,7 @@ export default function BrandsPage() {
       <div className="mb-8"><h1 className="text-4xl font-black tracking-tight">Our Brands</h1><p className="mt-2 text-base text-muted-foreground">Discover fashion from the world&apos;s most renowned brands.</p></div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {brands.map((brand) => <a key={brand.slug} href={`/brands/${brand.slug}`} className="group block overflow-hidden rounded-2xl border border-[#eee] transition-shadow duration-300 hover:shadow-lg">
-          <div className="relative aspect-video overflow-hidden bg-[#f0f0f0]"><img src={brand.image} alt={brand.name} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" /></div>
+          <div className="relative aspect-video overflow-hidden bg-[#f0f0f0]"><img src={brand.image} alt={brand.name} className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105" /></div>
           <div className="p-6"><h2 className="text-2xl font-bold">{brand.name}</h2><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{brand.description}</p><div className="mt-4 inline-block rounded-full bg-black px-4 py-2 text-xs font-semibold text-white">{brand.productCount} Products</div></div>
         </a>)}
       </div>

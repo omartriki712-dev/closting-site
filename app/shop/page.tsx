@@ -32,7 +32,7 @@ export default function CategoryPage() {
   const filteredProducts = useMemo(() => mockProducts.filter((product) => (selectedColors.length === 0 || selectedColors.includes(product.color)) && (selectedBrands.length === 0 || selectedBrands.includes(product.brand))), [selectedColors, selectedBrands])
   const sortedProducts = useMemo(() => sort === "Price: Low to High" ? [...filteredProducts].sort((a, b) => a.price - b.price) : filteredProducts, [sort, filteredProducts])
   return <StorefrontFrame>
-    <div className="mx-auto max-w-[1180px]">
+    <div className="w-full">
       <nav className="flex items-center gap-2 py-5 text-xs text-muted-foreground" aria-label="Breadcrumb"><a href="/" className="hover:underline">Home</a><span>›</span><span className="text-foreground">Shop</span></nav>
       <div className="mb-6 flex items-center justify-between gap-4"><div><h1 className="text-3xl font-black tracking-tight">Casual</h1><p className="mt-2 text-sm text-muted-foreground">Explore our collection of casual styles made for everyday comfort.</p></div><div className="flex items-center gap-4 text-xs text-muted-foreground"><span className="hidden sm:inline">Showing {sortedProducts.length} of {mockProducts.length} Products</span><label className="flex items-center gap-1 text-foreground">Sort by <select value={sort} onChange={(event) => setSort(event.target.value)} className="bg-transparent font-bold outline-none"><option>Most Popular</option><option>Price: Low to High</option></select></label></div></div>
       <button type="button" onClick={() => setFiltersOpen(true)} className="mb-5 flex w-full items-center justify-center gap-2 rounded-full bg-black py-3 text-sm font-semibold text-white lg:hidden"><SlidersHorizontal size={16} /> Filters</button>
