@@ -3,8 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'SHOP.CO — Cart',
-  description: 'A clean, modern shopping cart experience.',
+  title: 'SHOP.CO — Find Clothes That Match Your Style',
+  description: 'Discover new arrivals, top selling styles, and clothes made for your everyday wardrobe.',
   generator: 'v0.app',
   icons: {
     icon: [
