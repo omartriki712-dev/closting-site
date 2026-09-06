@@ -57,18 +57,18 @@ export default function ProductPage() {
         </section>
 
         <section className="border-b border-border py-4 lg:col-start-2 lg:row-start-1 lg:pt-2">
-          <h1 className="max-w-[320px] text-[27px] sm:text-3xl font-black leading-[.95] tracking-[-.6px]">ONE LIFE GRAPHIC T-SHIRT</h1>
+          <h1 className="max-w-none text-[30px] font-black leading-[1] tracking-[-1.2px] sm:text-[32px]">ONE LIFE GRAPHIC T-SHIRT</h1>
           <div className="mt-2 flex items-center gap-2 text-[11px]"><span className="text-[#f5ac24]">★★★★★</span><span>4.5/5</span></div>
-          <div className="mt-1 flex items-center gap-2"><span className="text-xl font-bold">$260</span><span className="text-lg text-muted-foreground line-through">$300</span><span className="rounded-full bg-[#ffe3e3] px-2 py-1 text-[10px] text-[#f04b4b]">-40%</span></div>
-          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">This graphic t-shirt which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.</p>
+          <div className="mt-2 flex items-center gap-3"><span className="text-[26px] font-bold leading-8">$260</span><span className="text-[22px] text-muted-foreground line-through">$300</span><span className="rounded-full bg-[#ffe3e3] px-3 py-1 text-[11px] text-[#f04b4b]">-40%</span></div>
+          <p className="mt-4 max-w-[520px] text-[12px] leading-[1.45] text-muted-foreground">This graphic t-shirt which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.</p>
         </section>
 
         <section className="border-b border-border py-4 lg:col-start-2 lg:row-start-2">
-          <p className="mb-2 text-[10px] text-muted-foreground">Select Colors</p>
+          <p className="mb-3 text-[12px] text-muted-foreground">Select Colors</p>
           <div className="flex gap-2">{[["olive", "#514d35"], ["green", "#31504c"], ["navy", "#2f334e"]].map(([name, value]) => <button key={name} aria-label={`Select ${name} color`} onClick={() => setColor(name)} className={`grid size-6 place-items-center rounded-full ${color === name ? "ring-2 ring-offset-2 ring-foreground" : ""}`} style={{ backgroundColor: value }}>{color === name && <span className="text-xs text-white">✓</span>}</button>)}</div>
         </section>
 
-        <section className="border-b border-border py-4 lg:col-start-2 lg:row-start-3"><p className="mb-2 text-[10px] text-muted-foreground">Choose Size</p><div className="flex gap-2">{["Small", "Medium", "Large", "X-Large"].map((item) => <button key={item} onClick={() => setSize(item)} className={`flex-1 rounded-full px-2 py-2 text-[10px] ${size === item ? "bg-black text-white" : "bg-muted text-muted-foreground"}`}>{item}</button>)}</div></section>
+        <section className="border-b border-border py-4 lg:col-start-2 lg:row-start-3"><p className="mb-3 text-[12px] text-muted-foreground">Choose Size</p><div className="flex gap-2">{["Small", "Medium", "Large", "X-Large"].map((item) => <button key={item} onClick={() => setSize(item)} className={`flex-1 rounded-full px-2 py-2 text-[10px] ${size === item ? "bg-black text-white" : "bg-muted text-muted-foreground"}`}>{item}</button>)}</div></section>
 
         <section className="flex gap-2 py-4 lg:col-start-2 lg:row-start-4"><div className="flex items-center justify-between rounded-full bg-muted px-4 text-sm"><button aria-label="Decrease quantity" onClick={() => setQuantity(Math.max(1, quantity - 1))}><Minus size={13} /></button><span className="px-4">{quantity}</span><button aria-label="Increase quantity" onClick={() => setQuantity(quantity + 1)}><Plus size={13} /></button></div><button className="flex-1 rounded-full bg-black text-xs text-white">Add to Cart</button></section></div>
 
