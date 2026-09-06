@@ -40,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="min-h-screen w-full bg-white">
+    <html lang="en" className="min-h-screen w-full bg-background">
       <body className="min-h-screen w-full font-sans antialiased">
         {children}
         <Toaster position="top-center" richColors closeButton duration={4500} />
