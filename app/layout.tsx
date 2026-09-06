@@ -41,7 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="min-h-screen w-full bg-white">
-      <body className="min-h-screen w-full antialiased">
+      <body className="min-h-screen w-full font-sans antialiased">
         {children}
         <Toaster position="top-center" richColors closeButton duration={4500} />
         {process.env.NODE_ENV === 'production' && <Analytics />}
