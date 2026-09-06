@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { useEffect, useState } from "react"
+import { useRef, useState } from "react"
 import { ArrowLeft, ArrowRight, Minus, Plus, SlidersHorizontal, Star } from "lucide-react"
 import { StorefrontFrame } from "@/components/storefront-header"
 
@@ -20,11 +20,8 @@ const reviews = [
   ["Ava H.", "I am not just wearing a t-shirt; I am wearing a piece of design philosophy."],
 ]
 
-function ReviewCarousel() {
-  const [active, setActive] = useState(0)
-  useEffect(() => { const timer = window.setInterval(() => setActive((value) => (value + 1) % reviews.length), 4500); return () => window.clearInterval(timer) }, [])
-  const review = reviews[active]
-  return <div className="mt-3"><article className="rounded-xl border border-border p-4 transition-all duration-500"><div className="flex items-center justify-between"><span className="text-[#f5ac24]">★★★★★</span><span className="text-xs text-muted-foreground">⋯</span></div><p className="mt-2 text-sm font-semibold">{review[0]} <span className="text-green-600">●</span></p><p className="mt-2 text-sm leading-relaxed text-muted-foreground">&quot;{review[1]}&quot;</p><p className="mt-3 text-xs text-muted-foreground">Posted on August {14 + active}, 2023</p></article><div className="mt-4 flex items-center justify-center gap-3"><button aria-label="Previous client comment" onClick={() => setActive((active - 1 + reviews.length) % reviews.length)}><ArrowLeft size={16} /></button><div className="flex gap-2">{reviews.map((item, index) => <button key={item[0]} aria-label={`Show comment ${index + 1}`} onClick={() => setActive(index)} className={`size-2 rounded-full ${active === index ? 'bg-black' : 'bg-[#ddd]'}`} />)}</div><button aria-label="Next client comment" onClick={() => setActive((active + 1) % reviews.length)}><ArrowRight size={16} /></button></div></div>
+function ReviewList({ onWriteReview }: { onWriteReview: () => void }) {
+  return <div className="py-3"><div className="flex items-center justify-between"><h2 className="text-sm font-semibold">All Reviews <span className="text-[10px] font-normal text-muted-foreground">(451)</span></h2><div className="flex gap-2"><button aria-label="Filter reviews" className="grid size-8 place-items-center rounded-full bg-muted"><SlidersHorizontal size={13} /></button><button type="button" onClick={onWriteReview} className="rounded-full bg-black px-5 py-3 text-xs font-medium text-white">Write a Review</button></div></div><div className="mt-4 grid gap-4 md:grid-cols-2">{reviews.map(([name, comment], index) => <article key={name} className="rounded-xl border border-border p-5"><div className="flex items-center justify-between"><span className="text-[#f5ac24]">★★★★★</span><span className="text-xs text-muted-foreground">⋯</span></div><p className="mt-3 text-sm font-semibold">{name} <span className="text-green-600">●</span></p><p className="mt-2 text-sm leading-relaxed text-muted-foreground">&quot;{comment}&quot;</p><p className="mt-5 text-xs text-muted-foreground">Posted on August {14 + index}, 2023</p></article>)}</div><button className="mx-auto mt-5 block rounded-full border border-border px-5 py-2 text-xs">Load More Reviews</button></div>
 }
 
 export default function ProductPage() {
@@ -33,6 +30,7 @@ export default function ProductPage() {
   const [color, setColor] = useState("olive")
   const [size, setSize] = useState("Large")
   const [tab, setTab] = useState("reviews")
+  const reviewDialog = useRef<HTMLDialogElement>(null)
 
   const stepImage = (direction: number) => {
     setActiveImage((current) => (current + direction + images.length) % images.length)
@@ -74,7 +72,7 @@ export default function ProductPage() {
 
         <section>
           <div className="flex border-b border-border text-xs"><button onClick={() => setTab("details")} className={`flex-1 border-b-2 py-3 ${tab === "details" ? "border-black font-semibold" : "border-transparent text-muted-foreground"}`}>Product Details</button><button onClick={() => setTab("reviews")} className={`flex-1 border-b-2 py-3 ${tab === "reviews" ? "border-black font-semibold" : "border-transparent text-muted-foreground"}`}>Rating & Reviews</button><button className="flex-1 py-3 text-muted-foreground">FAQs</button></div>
-          {tab === "details" ? <p className="py-4 text-xs leading-relaxed text-muted-foreground">A relaxed graphic tee made from soft cotton with a breathable finish and everyday fit.</p> : <div className="py-3"><div className="flex items-center justify-between"><h2 className="text-sm font-semibold">All Reviews <span className="text-[10px] font-normal text-muted-foreground">(451)</span></h2><div className="flex gap-2"><button aria-label="Filter reviews" className="grid size-8 place-items-center rounded-full bg-muted"><SlidersHorizontal size={13} /></button><button className="rounded-full bg-black px-5 py-3 text-xs font-medium text-white">Write a Review</button></div></div><ReviewCarousel /><button className="mx-auto mt-4 block rounded-full border border-border px-4 py-2 text-[9px]">Load More Reviews</button></div>}
+          {tab === "details" ? <p className="py-4 text-xs leading-relaxed text-muted-foreground">A relaxed graphic tee made from soft cotton with a breathable finish and everyday fit.</p> : <ReviewList onWriteReview={() => reviewDialog.current?.showModal()} />}<dialog ref={reviewDialog} className="w-[min(92vw,520px)] rounded-2xl border border-border bg-background p-0 shadow-xl backdrop:bg-black/40"><form method="dialog" className="flex flex-col gap-5 p-6"><div className="flex items-center justify-between"><h2 className="text-xl font-bold">Write a Review</h2><button type="submit" aria-label="Close review form" className="text-xl text-muted-foreground">×</button></div><label className="flex flex-col gap-2 text-sm font-medium">Email<input required type="email" className="rounded-lg border border-border px-3 py-2 text-sm font-normal" /></label><label className="flex flex-col gap-2 text-sm font-medium">Full Name<input required type="text" className="rounded-lg border border-border px-3 py-2 text-sm font-normal" /></label><label className="flex flex-col gap-2 text-sm font-medium">Rating<select required defaultValue="5" className="rounded-lg border border-border px-3 py-2 text-sm font-normal"><option value="5">5 stars</option><option value="4">4 stars</option><option value="3">3 stars</option><option value="2">2 stars</option><option value="1">1 star</option></select></label><label className="flex flex-col gap-2 text-sm font-medium">Comment<textarea required rows={4} className="resize-none rounded-lg border border-border px-3 py-2 text-sm font-normal" /></label><button value="submit" className="rounded-full bg-black px-5 py-3 text-sm font-medium text-white">Submit Review</button></form></dialog>
         </section>
 
         <section className="pt-12"><h2 className="text-center text-xl font-black leading-none md:text-3xl">YOU MIGHT<br />ALSO LIKE</h2><div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">{[["/products/one-life-front.png", "Polo with Contrast Trims", "$212"], ["/products/one-life-back.png", "Gradient Graphic T-shirt", "$145"], ["/products/one-life-model.png", "Polo with Tipping Details", "$180"], ["/products/one-life-front.png", "Black Striped T-shirt", "$120"]].map(([image, name, price]) => <article key={name}><div className="overflow-hidden rounded-lg bg-muted"><Image src={image} alt={name} width={500} height={360} unoptimized className="h-36 w-full object-contain md:h-44" /></div><h3 className="mt-2 text-[10px] font-semibold">{name}</h3><span className="text-sm font-bold">{price}</span></article>)}</div></section>
